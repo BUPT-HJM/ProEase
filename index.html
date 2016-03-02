@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8">
+
+		<title>ProEase</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="author" content="djl">
+
+		<!-- css block -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+
+	<body>
+		<div class="swiper-container mainSwiper">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide swiper-no-swiping home">
+					<button class="newBtn">新建项目</button>
+					<button class="settingBtn">设置</button>
+					<button class="viewBtn">查看项目</button>
+					<button class="aboutBtn">关于</button>
+				</div>
+
+				<div class="swiper-slide swiper-no-swiping new">
+					<form id="projectInfo">
+						<div>
+							项目名称
+							<input type="text" name="name">
+						</div>
+						<div>
+							上线日期
+							<input type="date" name="date">
+						</div>
+						<div>
+							项目类别
+							<label>
+								<input type="radio" name="category" value="auto">
+								auto
+							</label>
+							<label>
+								<input type="radio" name="category" value="go">
+								go
+							</label>
+						</div>
+						<div>
+							客户端
+							<label>
+								<input type="radio" name="client" value="wap">
+								wap
+							</label>
+							<label>
+								<input type="radio" name="client" value="pc">
+								pc
+							</label>
+						</div>
+					</form>
+
+					<form id="projectFrame">
+						<div>
+							技术选型
+							<!-- <label>
+								<input type="checkbox" name="vendor" value="swiper">
+								swiper
+							</label>
+							<label>
+								<input type="checkbox" name="vendor" value="normalize">
+								normalize
+							</label> -->
+						</div>
+					</form>
+					<div><button id="newFinish">完成</button></div>
+				</div>
+
+				<div class="swiper-slide swiper-no-swiping setting">
+					<label for="projectsDir">项目集目录</label>
+					<input type="text" id="projectsDir">
+
+					<label for="vendorDir">库目录</label>
+					<input type="text" id="vendorDir">
+
+					<button id="settingReset">重置</button>
+					<button id="settingConfirm">确认</button>
+				</div>
+
+				<div class="swiper-slide swiper-no-swiping view">
+					查看项目
+				</div>
+
+				<div class="swiper-slide swiper-no-swiping about">
+					关于
+				</div>
+			</div>
+		</div>
+
+		<!-- js block -->
+    <script src="js/swiper.min.js"></script>
+		<script src="js/index.js"></script>
+	</body>
+</html>
