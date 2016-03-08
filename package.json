@@ -12,6 +12,7 @@
     "electron-prebuilt": "^0.36.9",
     "find": "^0.2.4",
     "mkdirp": "^0.5.1",
-    "electron-packager": "^5.2.1"
+    "electron-packager": "^5.2.1",
+    "escape-string-regexp": "^1.0.5"
   }
 }

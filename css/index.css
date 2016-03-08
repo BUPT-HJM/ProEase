@@ -19,6 +19,7 @@
 
 .new{
 	height: 600px;
+	background-color: rgb(203,252,216);
 
 	display: flex;
 	flex-flow: row wrap;
@@ -39,4 +40,44 @@
 	display: flex;
 	flex-flow: row wrap;
 	justify-content:space-around;
+}
+
+.setting{
+	height: 600px;
+	background-color: rgb(203,252,216);
+}
+
+.view{
+	height: 600px;
+	background-color: rgb(203,252,216);
+}
+
+.view #address{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+
+	width: 400px;
+	margin-left: -200px;
+
+	height: 40px;
+	font-size: 35px;
+}
+
+.view .paths{
+	position: absolute;
+	top: 60%;
+	left: 50%;
+
+	width: 400px;
+	margin-left: -200px;
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content:space-around;
+}
+.view .paths button{
+	height: 60px;
+	border: 2px solid #a1a1a1;
+	border-radius: 30px;
 }

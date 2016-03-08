@@ -14,6 +14,8 @@ window.addEventListener('contextmenu', function (e) {
   e.preventDefault();
   menu.popup(remote.getCurrentWindow());
 }, false);
+const shell = require('electron').shell;
+const escapeStringRegexp = require('escape-string-regexp');
 
 
 
@@ -50,13 +52,13 @@ var turn2Setting = function(){
   };
 
   document.getElementById('settingConfirm').onclick = function(){
+    mainSwiper.slideTo(0, 0, false);
     var settingNew = settingStore;
     settingNew.projectsDir = document.getElementById('projectsDir').value;
     settingNew.vendorDir = document.getElementById('vendorDir').value;
     fs.writeFile(find.fileSync(/^setting\.json$/,__dirname)[0],JSON.stringify(settingNew, null, 4),false);
 
     settingStore = settingNew;
-    mainSwiper.slideTo(0, 0, false);
   };
 };
 document.getElementsByClassName('settingBtn')[0].onclick = turn2Setting;
@@ -150,8 +152,111 @@ document.getElementsByClassName('newBtn')[0].onclick = function(){
     document.getElementById('projectInfo').reset();
     document.getElementById('projectFrame').reset();
     mainSwiper.slideTo(0, 0, false);
+    if (newProjectDir != null) {
+      shell.showItemInFolder(newProjectDir);
+    };
   };
 };
+
+document.getElementsByClassName('viewBtn')[0].onclick = function(){
+  mainSwiper.slideTo(3, 0, false);
+  document.getElementById('address').focus();
+  // clipboard.writeText('hello yo!');
+
+  // http://go.163.com/2015/1204/bosideng/
+  // http://s.auto.163.com/2016/0302/a6-wap/
+  document.getElementById('address').oninput = function(){
+    var address = document.getElementById('address').value;
+    var addressInterpreter = new String();
+
+    document.getElementById("testURL").style.backgroundColor = "White";
+    document.getElementById("formalURL").style.backgroundColor = "White";
+    document.getElementById("dir").style.backgroundColor = "White";
+    if (/^http:\/\/test/.test(address)) {
+      // 输入的是测试链接
+      document.getElementById("formalURL").style.backgroundColor = "Pink";
+      document.getElementById("dir").style.backgroundColor = "Pink";
+
+      var result = address.split('/');
+      if (result.length >= 7) {
+        addressInterpreter.category = result[3];
+        addressInterpreter.year = result[4];
+        addressInterpreter.monthDay = result[5];
+        addressInterpreter.projectName = result[6];
+        // alert(addressInterpreter);
+
+        document.getElementById("testURL").value = address;
+        if (addressInterpreter.category == 'auto') {
+          document.getElementById("formalURL").value = 'http://s.auto.163.com/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        }else if (addressInterpreter.category == 'go') {
+          document.getElementById("formalURL").value = 'http://go.163.com/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        };
+        document.getElementById("dir").value = settingStore.projectsDir+'/'+addressInterpreter.category+'/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/'+'index.html/';
+      };
+    }else if(/^http:\/\/s/.test(address)){
+      // 输入的是正式链接
+      document.getElementById("testURL").style.backgroundColor = "Pink";
+      document.getElementById("dir").style.backgroundColor = "Pink";
+
+      var result = address.split('/');
+      if (result.length >= 6) {
+        addressInterpreter.category = result[2].split('.')[1];
+        addressInterpreter.year = result[3];
+        addressInterpreter.monthDay = result[4];
+        addressInterpreter.projectName = result[5];
+
+        if (addressInterpreter.category == 'auto') {
+          document.getElementById("testURL").value = 'http://test.auto.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        }else if (addressInterpreter.category == 'go') {
+          document.getElementById("testURL").value = 'http://test.go.163.com/go/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        };
+        document.getElementById("formalURL").value = address;
+        document.getElementById("dir").value = settingStore.projectsDir+'/'+addressInterpreter.category+'/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/'+'index.html/';
+      };
+    }else if (new RegExp("^" + escapeStringRegexp(settingStore.projectsDir), "g").test(address)) {
+      // 输入的是文件夹
+      document.getElementById("testURL").style.backgroundColor = "Pink";
+      document.getElementById("formalURL").style.backgroundColor = "Pink";
+
+      if (settingStore.projectsDir.split('\\').length > 1) {
+        addressInterpreter.category = address.split('\\')[settingStore.projectsDir.split('\\').length-1];
+        addressInterpreter.year = address.split('\\')[settingStore.projectsDir.split('\\').length];
+        addressInterpreter.monthDay = address.split('\\')[settingStore.projectsDir.split('\\').length+1];
+        addressInterpreter.projectName = address.split('\\')[settingStore.projectsDir.split('\\').length+2];
+      }else{
+        addressInterpreter.category = address.split('/')[settingStore.projectsDir.split('/').length-1];
+        addressInterpreter.year = address.split('/')[settingStore.projectsDir.split('/').length];
+        addressInterpreter.monthDay = address.split('/')[settingStore.projectsDir.split('/').length+1];
+        addressInterpreter.projectName = address.split('/')[settingStore.projectsDir.split('/').length+2];
+      }
+
+      if (addressInterpreter.category == 'auto') {
+        document.getElementById("testURL").value = 'http://test.auto.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+      }else if (addressInterpreter.category == 'go') {
+        document.getElementById("testURL").value = 'http://test.go.163.com/go/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+      };
+      if (addressInterpreter.category == 'auto') {
+        document.getElementById("formalURL").value = 'http://s.auto.163.com/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+      }else if (addressInterpreter.category == 'go') {
+        document.getElementById("formalURL").value = 'http://go.163.com/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+      };
+      document.getElementById("dir").value = address;
+    };
+  }
+
+  document.getElementById('testURL').onclick = function(){
+    shell.openExternal(document.getElementById("testURL").value);
+  }
+  document.getElementById('formalURL').onclick = function(){
+    shell.openExternal(document.getElementById("formalURL").value);
+  }
+  document.getElementById('dir').onclick = function(){
+    shell.showItemInFolder(document.getElementById("dir").value);
+  }
+  document.getElementById('back').onclick = function(){
+    mainSwiper.slideTo(0, 0, false);
+  }
+}
 
 
 
