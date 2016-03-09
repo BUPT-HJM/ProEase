@@ -206,7 +206,7 @@ document.getElementsByClassName('viewBtn')[0].onclick = function(){
         addressInterpreter.projectName = result[5];
 
         if (addressInterpreter.category == 'auto') {
-          document.getElementById("testURL").value = 'http://test.auto.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+          document.getElementById("testURL").value = 'http://test.go.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
         }else if (addressInterpreter.category == 'go') {
           document.getElementById("testURL").value = 'http://test.go.163.com/go/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
         };
@@ -231,7 +231,7 @@ document.getElementsByClassName('viewBtn')[0].onclick = function(){
       }
 
       if (addressInterpreter.category == 'auto') {
-        document.getElementById("testURL").value = 'http://test.auto.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        document.getElementById("testURL").value = 'http://test.go.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
       }else if (addressInterpreter.category == 'go') {
         document.getElementById("testURL").value = 'http://test.go.163.com/go/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
       };
