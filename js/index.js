@@ -16,11 +16,19 @@ window.addEventListener('contextmenu', function (e) {
 }, false);
 const shell = require('electron').shell;
 const escapeStringRegexp = require('escape-string-regexp');
+const ipcRenderer = require('electron').ipcRenderer;
+document.getElementById('close').onclick = function(){
+  ipcRenderer.send('asynchronous-message', 'close');
+};
+
 
 
 
 var mainSwiper = new Swiper('.mainSwiper',{
 });
+document.getElementById('first').onclick = function(){
+  mainSwiper.slideTo(0, 0, false);
+};
 
 fs.readdir(settingStore.vendorDir,function(err,files){
   var i = 0;
@@ -85,7 +93,7 @@ document.getElementsByClassName('newBtn')[0].onclick = function(){
                       '/' + projectInfo.category + 
                       '/' + projectInfo.date.substr(0,4) + 
                       '/' + projectInfo.date.substr(5,2) + projectInfo.date.substr(8,2) + 
-                      '/' + projectInfo.name + '-' + projectInfo.client;
+                      '/' + projectInfo.name;
       // alert(newProjectDir);
       mkdirp.sync(newProjectDir);
       mkdirp.sync(newProjectDir + '/css');
@@ -153,7 +161,7 @@ document.getElementsByClassName('newBtn')[0].onclick = function(){
     document.getElementById('projectFrame').reset();
     mainSwiper.slideTo(0, 0, false);
     if (newProjectDir != null) {
-      shell.showItemInFolder(newProjectDir);
+      shell.showItemInFolder(newProjectDir + '/' + 'index.html');
     };
   };
 };
@@ -201,6 +209,26 @@ document.getElementsByClassName('viewBtn')[0].onclick = function(){
       var result = address.split('/');
       if (result.length >= 6) {
         addressInterpreter.category = result[2].split('.')[1];
+        addressInterpreter.year = result[3];
+        addressInterpreter.monthDay = result[4];
+        addressInterpreter.projectName = result[5];
+
+        if (addressInterpreter.category == 'auto') {
+          document.getElementById("testURL").value = 'http://test.go.163.com/auto/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        }else if (addressInterpreter.category == 'go') {
+          document.getElementById("testURL").value = 'http://test.go.163.com/go/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/';
+        };
+        document.getElementById("formalURL").value = address;
+        document.getElementById("dir").value = settingStore.projectsDir+'/'+addressInterpreter.category+'/'+addressInterpreter.year+'/'+addressInterpreter.monthDay+'/'+addressInterpreter.projectName+'/'+'index.html/';
+      };
+    }else if(/^http:\/\/go/.test(address)){
+      // 输入的是正式链接
+      document.getElementById("testURL").style.backgroundColor = "Pink";
+      document.getElementById("dir").style.backgroundColor = "Pink";
+
+      var result = address.split('/');
+      if (result.length >= 6) {
+        addressInterpreter.category = 'go';
         addressInterpreter.year = result[3];
         addressInterpreter.monthDay = result[4];
         addressInterpreter.projectName = result[5];

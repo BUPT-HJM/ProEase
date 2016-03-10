@@ -14,6 +14,8 @@
 	</head>
 
 	<body>
+		<div id="first"></div>
+		<div id="close"></div>
 		<div class="swiper-container mainSwiper">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide swiper-no-swiping home">
@@ -74,10 +76,10 @@
 				</div>
 
 				<div class="swiper-slide swiper-no-swiping setting">
-					<label for="projectsDir">项目集目录</label>
+					<label for="projectsDir" id="projectsDirLabel">项目集目录</label>
 					<input type="text" id="projectsDir">
 
-					<label for="vendorDir">库目录</label>
+					<label for="vendorDir" id="vendorDirLabel">库目录</label>
 					<input type="text" id="vendorDir">
 
 					<button id="settingReset">重置</button>
@@ -85,7 +87,7 @@
 				</div>
 
 				<div class="swiper-slide swiper-no-swiping view">
-					<button id="back">返回首页</button>
+					<!-- <button id="back">返回首页</button> -->
 					<label>
 						<input type="text" id="address" placeholder="输入路径或链接">
 					</label>

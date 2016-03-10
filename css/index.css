@@ -1,3 +1,49 @@
+#close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+
+  cursor: pointer;
+  z-index: 99;
+}
+#close:hover {
+  opacity: 1;
+}
+#close:before, #close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+#close:before {
+  transform: rotate(45deg);
+}
+#close:after {
+  transform: rotate(-45deg);
+}
+
+#first {
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+
+  cursor: pointer;
+  z-index: 99;
+  background: url('../img/back.png') no-repeat center;
+  background-size: contain;
+}
+#first:hover {
+  opacity: 1;
+}
+
 .home{
 	height: 600px;
 	background-color: rgb(203,252,216);
@@ -45,6 +91,72 @@
 .setting{
 	height: 600px;
 	background-color: rgb(203,252,216);
+}
+.setting #projectsDirLabel{
+	position: absolute;
+	top: 30%;
+	left: 27%;
+
+	width: 400px;
+	margin-left: -200px;
+
+	height: 40px;
+	font-size: 35px;
+}
+.setting #projectsDir{
+	position: absolute;
+	top: 30%;
+	left: 50%;
+
+	width: 400px;
+	margin-left: -200px;
+
+	height: 40px;
+	font-size: 35px;
+}
+.setting #vendorDirLabel{
+	position: absolute;
+	top: 50%;
+	left: 27%;
+
+	width: 400px;
+	margin-left: -200px;
+
+	height: 40px;
+	font-size: 35px;
+}
+.setting #vendorDir{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	width: 400px;
+	margin-left: -200px;
+
+	height: 40px;
+	font-size: 35px;
+}
+.setting button{
+	height: 60px;
+	border: 2px solid #a1a1a1;
+	border-radius: 10px;
+
+	outline: none;
+	cursor: pointer;
+}
+.setting #settingReset{
+	position: absolute;
+	top: 63%;
+	left: 50%;
+
+	margin-left: -100px;
+}
+.setting #settingConfirm{
+	position: absolute;
+	top: 63%;
+	left: 50%;
+
+	margin-left: 100px;
 }
 
 .view{
